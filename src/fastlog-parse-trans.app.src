@@ -1,0 +1,7 @@
+{application,
+ 'fastlog-parse-trans',
+ [{description,"Fastlog parse transform utility."},
+  {vsn, "0.0.1"},
+  {registered,[]},
+  {applications,[kernel,stdlib]},
+  {env,[]}]}.
