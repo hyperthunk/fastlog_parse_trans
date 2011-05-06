@@ -26,6 +26,13 @@
 
 -export([parse_transform/2]).
 
-parse_transform(Forms, _Options) ->
-    io:fwrite("Forms = ~p~n", [Forms]),
-    Forms.
+parse_transform(Forms, Options) ->
+    {NewForms,_} = 
+        parse_trans:depth_first(fun xform_fun/4, [], Forms, Options),
+    parse_trans:revert(NewForms).
+
+xform_fun(Thing, Form, _Ctx, Acc) ->
+    io:format("[Thing]  ~p~n"
+              "[Form]  ~p~n", [Thing, Form]),
+    {Form, Acc}.
+
