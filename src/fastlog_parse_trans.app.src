@@ -1,5 +1,5 @@
 {application,
- 'fastlog-parse-trans',
+ fastlog_parse_trans,
  [{description,"Fastlog parse transform utility."},
   {vsn, "0.0.1"},
   {registered,[]},

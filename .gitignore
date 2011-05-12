@@ -1,0 +1,9 @@
+ebin/fastlog-parse-trans.app
+ebin/fastlog_parse_trans.appebin/fastlog_parse_trans.beam
+rt.work/
+deps
+ebin/fastlog_parse_trans.beam
+ebin/fastlog_parse_trans.app
+erl_crash.dump
+examples/simple-conf/ebin/example.beam
+examples/simple-conf/ebin/simple-conf.app
