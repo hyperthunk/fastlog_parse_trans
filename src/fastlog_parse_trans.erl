@@ -36,7 +36,15 @@ do_transform(Forms, Context) ->
 
 xform_fun(application, Form, Ctx, Conf) ->
     case erl_syntax_lib:analyze_application(Form) of
-        {fastlog, {LogFunc, _ArgLength}} ->
+        {fastlog, {LogFunc, _ArgLength}} 
+                when LogFunc =:= debug orelse 
+                     LogFunc =:= info orelse
+                     LogFunc =:= warn orelse
+                     LogFunc =:= error orelse
+                     LogFunc =:= sync_debug orelse
+                     LogFunc =:= sync_info orelse
+                     LogFunc =:= sync_warn orelse
+                     LogFunc =:= sync_error ->
             FuncApplic = transform_application(Form, LogFunc, Ctx, Conf),
             {[], FuncApplic, [], true, Conf};
         _ ->
@@ -56,8 +64,9 @@ transform_application(Form, LogFunc, Ctx, Conf) ->
     Func = parse_trans:context(function, Ctx),
     Arity = parse_trans:context(arity, Ctx),
     L0 = erl_syntax:get_pos(Form),
-    io:format("[Function Application]  ~p~n[Args]  ~p~n[Extras]  ~p~n",
-                [LogFunc, Args, [Mod, Func, Arity, L0]]),
+    progress_message(Conf, "[Function Application]  "
+                           "~p~n[Args]  ~p~n[Extras]  ~p~n",
+                           [LogFunc, Args, [Mod, Func, Arity, L0]]),
     case Args of
         [{var, _, _}=Var, {string, _, _Str}=Msg|[]] ->
 			call_logger(LogFunc, Var, Msg, 
