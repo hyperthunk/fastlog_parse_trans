@@ -3,15 +3,14 @@
 -include_lib("fastlog_parse_trans/include/fastlog.hrl").
 -fastlog({parse_trans.verbose, true}).
 
-main(_) ->
-	%% = init:get_plain_arguments(),
+main() ->
 	fastlog:start(),
-	fastlog:add_logger(?MODULE),
-	Logger = list_to_atom(io:get_line("logger? >>")),
-	fastlog:add_logger(Logger),
-	hello(io:get_line("hello? >>")),
-	goodbye(io:get_line("goodbye? >>")),
-	warn_number(list_to_integer(io:get_line("warn_number? >>"))),
+	fastlog:add_logger(?MODULE, debug),
+	Logger = 'fastlog.special.logger',
+	fastlog:add_logger(Logger, debug),
+	hello("World"),
+	goodbye("foo"),
+	warn_number(33),
 	info(),
 	log(Logger),
 	ok.
