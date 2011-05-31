@@ -52,10 +52,7 @@ xform_fun(application, Form, Ctx, Conf) ->
     end;
 xform_fun(attribute, {attribute,_LN,fastlog,{_,_}=Data}=Form, _Ctx, Conf) ->
     {[], Form, [], true, [Data|Conf]};
-xform_fun(Thing, Form, _Ctx, Conf) ->
-    progress_message(Conf,
-              "[Thing]  ~p~n"
-              "[Form]  ~p~n", [Thing, Form]),
+xform_fun(_Thing, Form, _Ctx, Conf) ->
     {[], Form, [], true, Conf}.
 
 transform_application(Form, LogFunc, Ctx, Conf) ->
